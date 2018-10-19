@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class QueueImplementataion {
-
+wswwwdwdwdwd
 	Scanner sc = new Scanner(System.in);
 	String value;
 	int queueIndexMin = -1, queueIndexMax = -1, size, input,
