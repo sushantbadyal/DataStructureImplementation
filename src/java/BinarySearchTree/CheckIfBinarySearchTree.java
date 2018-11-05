@@ -5,74 +5,48 @@ import java.util.Scanner;
 public class CheckIfBinarySearchTree {
 
     class Node {
-        int key;
-        Node left, right;
-
-        Node(int value) {
-            key = value;
-            left = right = null;
-        }
+        Node leftNode = null ;
+        Node rightNode = null ;
+        int value;
     }
 
+    Node root=null;
 
-    Node root;
-    CheckIfBinarySearchTree(){
-        root=null;
-    }
-
-
-    void insert(int value){
-        root=insertValue(root,value);
-    }
-
-
-    Node insertValue(Node root ,int value){
+    Node insertValue(Node root ,int newValue){
         if(root==null) {
-            root = new Node(value);
+            root = new Node();
+            root.value = newValue;
         }
-            else if (root.left != null && root.right != null) {
-                insertValue(root.left, value);
-                insertValue(root.right, value);
-            } else if (root.left == null) {
-                root.left =new Node(value);
+            else if (root.leftNode != null && root.rightNode != null) {
+                insertValue(root.leftNode, newValue);
+                insertValue(root.rightNode, newValue);
+            } else if (root.leftNode == null) {
+                root.leftNode =new Node();
+                root.leftNode.value=newValue;
             } else {
-                root.right = new Node(value);
+                root.rightNode = new Node();
+                root.rightNode.value = newValue;
             }
 
          return root;
 
     }
 
-    Boolean  isBinarySearchTree(Node root,int small, int large)
+    Boolean  checkBinarySearchTree(Node root,int small, int large)
     {
         if(root==null)
             return true;
 
-        else if(root.key<large && root.key>small)
+        else if(root.value<large && root.value>small)
         {
-          Boolean isLeftBst=  isBinarySearchTree(root.left,small,root.key);
-           Boolean isRightBst= isBinarySearchTree(root.right,root.key,large);
+          Boolean isLeftBst=  checkBinarySearchTree(root.leftNode,small,root.value);
+           Boolean isRightBst= checkBinarySearchTree(root.rightNode,root.value,large);
             return isLeftBst && isRightBst;
         }
         else
             return false;
 
     }
-
-
-
-    void check() {
-
-             Boolean result= isBinarySearchTree(root,Integer.MIN_VALUE, Integer.MAX_VALUE);
-             if( result==true)
-             System.out.println("Yes, it's a Binary search Tree");
-             else
-                 System.out.println("No, it's not a Binary search Tree");
-
-              }
-
-
-
 
     public static void main(String args[])
     {
@@ -91,18 +65,22 @@ public class CheckIfBinarySearchTree {
             if(choice==1){
                 System.out.println(" Enter The Value : ");
                 value=sc.nextInt();
-                tree.insert(value);
+                tree.root= tree.insertValue(tree.root,value);
             }
 
             if(choice==2){
                 System.out.println(" Enter The Value : ");
                 value=sc.nextInt();
                 tree.root=null;
-                tree.insert(value);
+                tree.root= tree.insertValue(tree.root,value);
             }
 
             if(choice==3){
-                  tree.check();
+                boolean result =tree.checkBinarySearchTree(tree.root,Integer.MIN_VALUE, Integer.MAX_VALUE);
+                if( result==true)
+                    System.out.println("Yes, it's a Binary search Tree");
+                else
+                    System.out.println("No, it's not a Binary search Tree");
             }
 
             if(choice==0){

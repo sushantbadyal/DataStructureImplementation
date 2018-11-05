@@ -5,89 +5,61 @@ import java.util.Scanner;
 public class BinarySearchTree {
 
     class Node {
-        int key;
-        Node left, right;
-
-        Node(int value) {
-            key = value;
-            left = right = null;
-        }
+        Node leftNode = null ;
+        Node rightNode = null ;
+        int value;
     }
 
+    Node root=null;
 
-         Node root;
-         BinarySearchTree(){
-             root=null;
-         }
+         Node insertValue(Node root ,int newValue)
+         {
 
-
-         void insert(int value){
-             root=insertValue(root,value);
-         }
-
-
-         Node insertValue(Node root ,int value){
-             if(root==null){
-                 root=new Node(value);
+             if(root==null)
+             {
+                 root=new Node();
+                 root.value = newValue;
              }
-             else if(value<root.key){
-              root.left=insertValue(root.left,value);
+             else if(newValue < root.value)
+             {
+              root.leftNode=insertValue(root.leftNode,newValue);
              }
              else{
-                 root.right=insertValue(root.right,value);
+                 root.rightNode=insertValue(root.rightNode,newValue);
              }
              return root;
          }
 
 
-
-         void preOrder(){
-           preOrderExecute(root);
-         }
-
-
-         void preOrderExecute(Node root){
+         void preOrder(Node root){
 
              if(root!=null)
              {
-                 System.out.print (" "+root.key);
-                 preOrderExecute(root.left);
-                 preOrderExecute(root.right);
+                 System.out.print (" "+root.value);
+                 preOrder(root.leftNode);
+                 preOrder(root.rightNode);
              }
 
          }
 
-
-    void inOrder(){
-        inOrderExecute(root);
-    }
-
-
-    void inOrderExecute(Node root){
+    void inOrder(Node root){
 
         if(root!=null)
         {
-            inOrderExecute(root.left);
-            System.out.print (" "+root.key);
-            inOrderExecute(root.right);
+            inOrder(root.leftNode);
+            System.out.print (" "+root.value);
+            inOrder(root.rightNode);
         }
 
     }
 
-
-
-    void postOrder(){
-        postOrderExecute(root);
-    }
-
-
-    void postOrderExecute(Node root){
+    void postOrder(Node root){
 
         if(root!=null)
         {
-            postOrderExecute(root.left);
-            postOrderExecute(root.right);
-            System.out.print (" "+root.key);
+            postOrder(root.leftNode);
+            postOrder(root.rightNode);
+            System.out.print (" "+root.value);
         }
 
     }
@@ -111,16 +83,16 @@ public class BinarySearchTree {
                  if(choice==1){
                      System.out.println(" Enter The Value : ");
                      value=sc.nextInt();
-                     tree.insert(value);
+                    tree.root= tree.insertValue(tree.root,value);
                  }
                      if(choice==2){
-                       tree.inOrder();
+                       tree.inOrder(tree.root);
                      }
                  if(choice==3){
-                     tree.preOrder();
+                     tree.preOrder(tree.root);
                  }
                  if(choice==4){
-                     tree.postOrder();
+                     tree.postOrder(tree.root);
                  }
 
                  if(choice==0){
