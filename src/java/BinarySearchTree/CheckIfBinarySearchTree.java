@@ -12,7 +12,7 @@ public class CheckIfBinarySearchTree {
 
     Node root=null;
 
-    Node insertValue(Node root ,int newValue){
+    void insertValue(Node root ,int newValue){
         if(root==null) {
             root = new Node();
             root.value = newValue;
@@ -28,7 +28,7 @@ public class CheckIfBinarySearchTree {
                 root.rightNode.value = newValue;
             }
 
-         return root;
+          this.root = root;
 
     }
 
@@ -65,14 +65,14 @@ public class CheckIfBinarySearchTree {
             if(choice==1){
                 System.out.println(" Enter The Value : ");
                 value=sc.nextInt();
-                tree.root= tree.insertValue(tree.root,value);
+                tree.insertValue(tree.root,value);
             }
 
             if(choice==2){
                 System.out.println(" Enter The Value : ");
                 value=sc.nextInt();
                 tree.root=null;
-                tree.root= tree.insertValue(tree.root,value);
+                tree.insertValue(tree.root,value);
             }
 
             if(choice==3){
